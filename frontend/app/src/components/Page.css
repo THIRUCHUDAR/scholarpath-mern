@@ -1,0 +1,137 @@
+/* src/components/Page.css */
+
+.content-box-icon {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 25px;
+    line-height: 1;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 🏆 FIX: Use dynamic background color (secondary/light background) */
+    background-color: var(--color-secondary); 
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; 
+    padding: 40px 20px;
+    width: 100%;
+    animation: fadeIn 0.5s ease-out;
+    /* Ensure the container background inherits the page color */
+    background-color: var(--color-bg); 
+    transition: background-color 0.3s ease;
+}
+
+.content-box {
+    /* 🏆 FIX: Use dynamic surface color for box background (White/Dark Surface) */
+    background-color: var(--color-surface);
+    /* 🏆 FIX: Use dynamic border color */
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    /* Shadow can remain semi-hardcoded, but it benefits from the dark background */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); 
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.content-box h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 12px;
+    /* Uses dynamic primary text color */
+    color: var(--color-text-dark);
+}
+
+.content-box .content-box-subtitle {
+    text-align: center;
+    /* Uses dynamic secondary text color */
+    color: var(--color-text-light);
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    /* Uses dynamic primary text color */
+    color: var(--color-text-dark);
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    /* 🏆 FIX: Use dynamic border color */
+    border: 1px solid var(--color-border);
+    /* 🏆 FIX: Use dynamic background and text color */
+    background-color: var(--color-bg); /* Use page BG color for subtle inset look */
+    color: var(--color-text-dark); /* Ensure text is visible in both modes */
+    
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.15);
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 0.9rem;
+}
+
+.auth-link a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* Message boxes are kept hardcoded for high contrast feedback colors */
+.auth-message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.auth-message-error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+.auth-message-success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

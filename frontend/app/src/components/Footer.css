@@ -1,0 +1,99 @@
+/* src/components/Footer.css */
+.footer {
+    /* Uses the dynamic footer background variable defined in index.css */
+    background-color: var(--color-footer-bg); 
+    
+    /* We are now GUARANTEEING a light color, ignoring external color variables */
+    color: #f0f0f0; 
+    
+    padding-top: 60px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    /* FIX: Force white for maximum visibility */
+    color: #ffffff; 
+    margin-bottom: 16px;
+}
+
+/* 🏆 FIX: Paragraph text */
+.footer-about p {
+    font-size: 0.95rem; 
+    line-height: 1.7;
+    /* FIX: Force light gray color */
+    color: #cccccc; 
+}
+
+/* 🏆 FIX: Headings (Quick Links, Legal, Follow Us) */
+.footer-links h4 {
+    font-size: 1.2rem; 
+    /* FIX: Force white color */
+    color: #ffffff; 
+    margin-bottom: 20px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+/* 🏆 FIX: Links (Home, Search, etc.) */
+.footer-links a {
+    font-size: 0.95rem; 
+    /* FIX: Force light gray link color */
+    color: #cccccc; 
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    /* Uses the accent/primary color for hover */
+    color: var(--color-primary);
+}
+
+.social-icons {
+    display: flex;
+    gap: 16px;
+}
+
+.social-icons a {
+    /* FIX: Force light gray icon color */
+    color: #cccccc; 
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    /* Uses the accent/primary color for hover */
+    color: var(--color-primary);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    /* Uses the dynamic border color */
+    border-top: 1px solid var(--color-border);
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* 🏆 FIX: Copyright text */
+.footer-bottom p {
+    font-size: 0.95rem; 
+    margin: 0;
+    /* FIX: Force light gray color */
+    color: #cccccc;
+}

@@ -1,0 +1,63 @@
+/* src/components/Search.css */
+
+.search-page-container {
+  width: 100%;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.search-header {
+  background-color: var(--color-white);
+  padding: 40px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  margin-bottom: 40px;
+}
+
+.search-header h1 {
+  font-size: 2.5rem;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.search-header p {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  margin-bottom: 24px;
+}
+
+.search-bar-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 1rem;
+  border-radius: 50px;
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(0, 112, 243, 0.15);
+}
+
+.scholarship-grid-container {
+  padding-bottom: 60px;
+}
+
+.scholarship-grid {
+  display: grid;
+  /* This will create 1, 2, or 3 columns depending on screen size */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,114 @@
+/* src/components/Auth.css */
+.auth-page-container {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    animation: fadeIn 0.5s ease-out;
+    /* Ensure the container background is the page background color */
+    background-color: var(--color-bg);
+    transition: background-color 0.3s ease;
+}
+
+.auth-wrapper {
+    width: 100%;
+    max-width: 550px; 
+    display: grid;
+    grid-template-columns: 1fr; 
+    
+    /* 🏆 FIX: Use dynamic surface color for the form box background */
+    background-color: var(--color-surface);
+    border-radius: 16px;
+    
+    /* 🏆 FIX: Use dynamic border and shadow variables */
+    border: 1px solid var(--color-border);
+    /* Note: Box shadow color won't swap fully using variables, but this uses dark mode's color if set */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); 
+    
+    overflow: hidden;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-form-side {
+    padding: 50px 60px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-form-side h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center; 
+    margin-top: 0;
+    margin-bottom: 12px;
+    /* Uses global dynamic text color */
+    color: var(--color-text-dark);
+}
+
+.auth-form-side .form-greeting {
+    text-align: center; 
+    /* Uses global dynamic secondary text color */
+    color: var(--color-text-light);
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.form-group { margin-bottom: 20px; text-align: left; }
+.form-group label { 
+    display: block; 
+    font-weight: 600; 
+    margin-bottom: 8px; 
+    font-size: 0.9rem; 
+    /* Label text uses the primary text color */
+    color: var(--color-text-dark);
+}
+
+/* 🏆 FIX: Input fields must adapt in dark mode */
+.form-input { 
+    width: 100%; 
+    padding: 12px 16px; 
+    font-size: 1rem; 
+    
+    /* Input background uses the page BG color for subtle inset look */
+    background-color: var(--color-bg); 
+    /* Input text color uses the primary text color */
+    color: var(--color-text-dark); 
+    /* Input border uses the dynamic border color */
+    border: 1px solid var(--color-border); 
+    
+    border-radius: 8px; 
+    transition: all 0.3s ease;
+}
+.form-input:focus { 
+    outline: none; 
+    border-color: var(--color-primary); 
+    box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.15); 
+}
+
+.auth-link { text-align: center; margin-top: 24px; font-size: 0.9rem; }
+.auth-link a { 
+    /* Link color uses the dynamic accent color */
+    color: var(--color-primary); 
+    font-weight: 600; 
+    text-decoration: none; 
+}
+.auth-link a:hover { text-decoration: underline; }
+
+/* Message boxes are kept hardcoded for high contrast feedback colors */
+.auth-message { padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+.auth-message-error { background-color: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+.auth-message-success { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+
+@media (max-width: 900px) {
+    .auth-form-side {
+        padding: 40px;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

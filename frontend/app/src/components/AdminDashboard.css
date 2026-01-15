@@ -1,0 +1,61 @@
+/* src/components/AdminDashboard.css */
+.admin-container {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-header h1 { color: var(--color-text-dark); margin-bottom: 20px; }
+
+.admin-tabs { display: flex; gap: 15px; margin-bottom: 30px; }
+
+.tab-btn {
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--color-text-light);
+}
+.tab-btn.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.admin-content {
+  background: var(--color-surface);
+  width: 100%;
+  max-width: 1000px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.table-wrapper { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table th { text-align: left; padding: 12px; color: var(--color-text-light); }
+.admin-table td { padding: 12px; border-top: 1px solid var(--color-border); color: var(--color-text-dark); }
+
+.status-badge { padding: 4px 10px; border-radius: 10px; font-size: 0.8rem; }
+.status-badge.approved { background: #d1fae5; color: #065f46; }
+.status-badge.rejected { background: #fee2e2; color: #991b1b; }
+.status-badge.pending { background: #fef3c7; color: #92400e; }
+
+.action-cell { display: flex; gap: 10px; }
+.action-btn {
+  width: 30px; height: 30px; border-radius: 50%; border: none; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.approve { background: #10b981; color: white; }
+.reject { background: #ef4444; color: white; }
+
+.admin-form input {
+  width: 100%; padding: 12px; margin-bottom: 15px;
+  border: 1px solid var(--color-border); border-radius: 8px;
+  background: var(--color-bg); color: var(--color-text-dark);
+}

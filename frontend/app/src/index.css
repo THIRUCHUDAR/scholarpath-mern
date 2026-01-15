@@ -1,0 +1,186 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ------------------- 1. DEFAULT VARIABLES (LIGHT MODE - Professional Blue) ☀️ ------------------- */
+:root {
+  /* Brand Colors (Updated to Match Screenshot Blue) */
+  --color-primary: #0065FF;      /* Vibrant Royal Blue (Like the Welcome Card) */
+  --color-primary-dark: #0052cc; /* Darker Blue for hover states */
+  
+  /* Theme-Swappable Colors */
+  --color-bg: #EEF2F6;           /* Cool Light Blue-Gray (Matches the screenshot background) */
+  --color-surface: #ffffff;      /* Pure White for cards (High contrast) */
+  --color-text-dark: #1c1c1c;    /* Nearly Black */
+  --color-text-light: #64748b;   /* Slate Gray for secondary text */
+  --color-border: #e2e8f0;       /* Subtle Blue-Gray border */
+  --color-secondary: #dae1e7;    /* Secondary background */
+
+  /* FOOTER VARIABLES */
+  --color-footer-bg: #1e293b;    /* Slate 800 */
+  --color-footer-text: #f8fafc; 
+
+  /* Layout & Font Settings */
+  --font-family-main: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --container-width: 1200px;
+  --nav-height: 70px;
+}
+
+/* -------------------- 2. DARK MODE OVERRIDES (Deep Navy/Blue) 🌙 -------------------- */
+html.dark {
+  /* Theme-Swappable Colors */
+  --color-bg: #0f172a;           /* Deep Slate 900 (Navy Black) */
+  --color-surface: #1e293b;      /* Slate 800 Card Background */
+  --color-text-dark: #f1f5f9;    /* Slate 100 Text */
+  --color-text-light: #94a3b8;   /* Slate 400 Text */
+  --color-border: #334155;       /* Slate 700 Border */
+  --color-secondary: #1e293b; 
+
+  /* Dark mode accent (Bright Cyan/Blue to pop against Navy) */
+  --color-primary: #3b82f6;      /* Bright Blue */
+  --color-primary-dark: #2563eb; 
+  
+  /* FOOTER VARIABLES (Dark Mode) */
+  --color-footer-bg: #020617; 
+  --color-footer-text: var(--color-text-light); 
+}
+
+/* -------------------- Global Reset (Animations & Body Styles) -------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-main);
+  color: var(--color-text-dark);
+  line-height: 1.6;
+  transition: color 0.3s ease; 
+  position: relative; 
+  overflow-x: hidden; 
+}
+
+/* ☀️ NEW BODY BACKGROUND: Clean Cool Blue (Matches Screenshot) */
+body {
+    background-color: var(--color-bg); /* Solid cool background base */
+    /* Subtle gradient from top (white) to bottom (cool gray) */
+    background: linear-gradient(
+        180deg, 
+        #ffffff 0%, 
+        #f1f5f9 30%, 
+        var(--color-bg) 100% 
+    );
+    background-attachment: fixed; 
+}
+
+/* 🌙 DARK MODE ANIMATED BACKGROUND (Deep Space Blue) */
+html.dark body {
+    background: linear-gradient(
+        -45deg,
+        #020617, /* Very Dark Blue */
+        #0f172a, /* Slate */
+        #1e1b4b, /* Indigo */
+        #172554  /* Blue */
+    );
+    background-size: 400% 400%; 
+    animation: backgroundShift 25s ease infinite; 
+    background-color: transparent; 
+}
+
+/* 🌙 SECONDARY ANIMATION LAYER (Subtle Grid for Tech look) */
+html.dark body::before {
+    content: "";
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 200%; 
+    height: 200%;
+    z-index: -1;
+    opacity: 0.05; 
+    background-image: radial-gradient(circle, #3b82f6 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: backgroundPan 60s linear infinite; 
+}
+
+/* 🚀 Keyframes for Primary Gradient Animation (Dark Mode) */
+@keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 🚀 Keyframes for Secondary Pattern Movement (Dark Mode) */
+@keyframes backgroundPan {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Utility Classes --- */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Primary Button - Uses the new Royal Blue */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 101, 255, 0.2); /* Soft blue shadow */
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 101, 255, 0.3);
+}
+
+/* Secondary Button - Clean White with Border */
+.btn-secondary {
+  background-color: var(--color-surface); 
+  color: var(--color-primary);
+  border: 2px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background-color: #f8fafc; 
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text-dark); 
+}
