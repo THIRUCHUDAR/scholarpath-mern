@@ -5,37 +5,40 @@ const cors = require('cors');
 
 const app = express();
 
-// --- MIDDLEWARE ---
+/* -------------------- MIDDLEWARE -------------------- */
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://your-frontend.vercel.app' // change later
+    'https://scholarpath-mern.vercel.app' // ✅ your frontend domain (change if different)
   ],
   credentials: true
 }));
 
 app.use(express.json());
 
-// --- TEST ROOT ROUTE (VERY IMPORTANT FOR VERCEL) ---
+/* -------------------- ROOT TEST ROUTE -------------------- */
 app.get("/", (req, res) => {
-  res.send("ScholarPath API is running 🚀");
+  res.status(200).send("ScholarPath API is running 🚀");
 });
 
-// --- MONGODB CONNECTION ---
+/* -------------------- DATABASE -------------------- */
 const MONGO_URI = process.env.MONGODB_URL;
 
 if (!MONGO_URI) {
-  console.error("❌ MONGODB_URL is not defined in environment variables");
+  console.error("❌ MONGODB_URL is missing");
 } else {
-  mongoose.connect(MONGO_URI)
-    .then(() => console.log("✅ MongoDB connected successfully"))
-    .catch((err) => console.error("❌ MongoDB connection error:", err.message));
+  mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch(err => console.error("❌ MongoDB error:", err.message));
 }
 
-// --- ROUTES ---
+/* -------------------- ROUTES -------------------- */
 app.use('/api/user', require('./routes/user'));
 app.use('/api/scholarships', require('./routes/scholarships'));
 app.use('/api/applications', require('./routes/applications'));
 
-// --- EXPORT APP FOR VERCEL ---
+/* -------------------- EXPORT FOR VERCEL -------------------- */
 module.exports = app;
