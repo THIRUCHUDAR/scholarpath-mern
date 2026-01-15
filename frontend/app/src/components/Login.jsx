@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../config';
 import './Auth.css';
 
 function Login() {
@@ -17,54 +18,36 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isLoading) return;
-    
+
     setIsLoading(true);
     setMessage('');
-    
+    setIsError(false);
+
     try {
-      const res = await axios.post("http://localhost:3000/api/user/login", formData);
+      const res = await axios.post(
+        `${API_BASE_URL}/api/user/login`,
+        formData,
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-      // Check if login was successful
-      if (res.data.message === 'Login successful 🎉' || res.data.token) {
-        
-        // 1. Save Token
-        const token = res.data.token || 'dummy-token';
-        localStorage.setItem('token', token);
-        
-        // 2. DETERMINE THE USER NAME (The Fix)
-        let finalName = "";
+      const { token, user } = res.data;
 
-        // A. Check if the server sent the name
-        if (res.data.user && res.data.user.name) {
-          finalName = res.data.user.name;
-        } else if (res.data.name) {
-          finalName = res.data.name;
-        } 
-        // B. If server didn't send it, check if we saved it during Signup
-        else {
-          const tempName = localStorage.getItem('tempUserName');
-          if (tempName) {
-            finalName = tempName;
-          } else {
-            // C. Last Resort: Use the email part (only if we have absolutely nothing else)
-            finalName = formData.email.split('@')[0];
-          }
-        }
-
-        // 3. Save the final name to be used in Navbar
-        localStorage.setItem('userName', finalName);
-        
-        // 4. Redirect
-        window.location.href = '/';
-
-      } else {
-        setMessage(res.data.message || "Login failed.");
-        setIsError(true);
-        setIsLoading(false);
+      if (!token) {
+        throw new Error("Token not received");
       }
 
+      // Save auth data
+      localStorage.setItem("token", token);
+      localStorage.setItem(
+        "userName",
+        user?.name || formData.email.split("@")[0]
+      );
+
+      // Redirect to home
+      window.location.href = "/";
+
     } catch (err) {
-      setMessage(err.response?.data?.error || "An unexpected error occurred.");
+      setMessage(err.response?.data?.error || "Login failed");
       setIsError(true);
       setIsLoading(false);
     }
@@ -73,52 +56,38 @@ function Login() {
   return (
     <div className="auth-page-container">
       <div className="auth-wrapper">
-        
         <div className="auth-form-side">
           <h2>Login</h2>
-          <p className="form-greeting">Please enter your credentials.</p>
 
-          {message && 
+          {message && (
             <div className={`auth-message ${isError ? 'auth-message-error' : 'auth-message-success'}`}>
-              <p>{message}</p>
+              {message}
             </div>
-          }
+          )}
 
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                className="form-input"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                className="form-input"
-                placeholder="••••••••"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button type="submit" className="btn btn-primary" disabled={isLoading}>
-              {isLoading ? 'Logging in...' : 'Login'}
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
             </button>
           </form>
 
-          <p className="auth-link">
-            Don't have an account? <Link to="/signup">Sign up now</Link>
-          </p>
+          <p>Don’t have an account? <Link to="/signup">Sign up</Link></p>
         </div>
       </div>
     </div>

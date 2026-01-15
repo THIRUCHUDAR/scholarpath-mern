@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config';
 import './Auth.css';
 
 function Signup() {
@@ -16,25 +17,26 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
+    setIsError(false);
+
     try {
-      // 1. Send data to backend
-      await axios.post("http://localhost:3000/api/user", formData);
+      await axios.post(
+        `${API_BASE_URL}/api/user`,
+        formData,
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-      // --- CRITICAL FIX: Save the name locally ---
-      // Since the backend doesn't send the name back during login,
-      // we save it here temporarily so the Login page can grab it.
-      localStorage.setItem('tempUserName', formData.name); 
-      // -------------------------------------------
+      // Save name temporarily (optional fallback)
+      localStorage.setItem('tempUserName', formData.name);
 
-      setMessage("Account Created Successfully! Redirecting to login...");
+      setMessage("Account created successfully! Redirecting...");
       setIsError(false);
-      
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+
+      setTimeout(() => navigate("/login"), 2000);
 
     } catch (err) {
-      setMessage(err.response?.data?.error || "Signup failed. Please try again.");
+      setMessage(err.response?.data?.error || "Signup failed");
       setIsError(true);
     }
   };
@@ -42,65 +44,44 @@ function Signup() {
   return (
     <div className="auth-page-container">
       <div className="auth-wrapper">
-
         <div className="auth-form-side">
           <h2>Create an Account</h2>
-          <p className="form-greeting">Join us to find your scholarship path.</p>
 
-          {message &&
+          {message && (
             <div className={`auth-message ${isError ? 'auth-message-error' : 'auth-message-success'}`}>
               {message}
             </div>
-          }
+          )}
 
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input
-                id="name"
-                type="text"
-                name="name"
-                className="form-input"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                className="form-input"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                className="form-input"
-                placeholder="••••••••"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">Create Account</button>
+            <input
+              name="name"
+              placeholder="Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit">Create Account</button>
           </form>
 
-          <p className="auth-link">
-            Already have an account? <Link to="/login">Log in</Link>
-          </p>
+          <p>Already have an account? <Link to="/login">Login</Link></p>
         </div>
-
       </div>
     </div>
   );
